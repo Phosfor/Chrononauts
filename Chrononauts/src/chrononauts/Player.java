@@ -6,6 +6,7 @@ package chrononauts;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,17 +32,18 @@ public class Player extends Entity{
     
     @Override
     public void paint(Graphics2D g) {
-        g.drawImage(mImage, this, null);
+        g.drawImage(mImage, getTransform(), null);
     }
 
     @Override
     public void update(long deltaTime) {
-        this.translate(0.1*deltaTime, 0.2*deltaTime);
-        if(this.getTranslateX() > 300)
-            this.translate(-300, 0);
-        if(this.getTranslateY() > 300)
-            this.translate(0, -300);
-        this.rotate(0.3*deltaTime);
+        mX += 0.1*deltaTime;
+        mY += Math.sin(mY)*deltaTime;
+        if(mX > 300)
+            mX = 0;
+        if(mY > 300)
+            mY = 0;
+        mRotation += 0.001*deltaTime;
     }
     
 }
